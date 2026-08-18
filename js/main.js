@@ -1,19 +1,41 @@
 
-const CAPACIDAD = 3;
-let ingresaron = 0;
+function calcularDescuento(precio, porcentaje) {
+  const descuento = precio * (porcentaje / 100);
+  const precioFinal = precio - descuento;
+  return precioFinal;
+}
 
-while (ingresaron < CAPACIDAD) {
-  const edad = Number(prompt("Ingresá tu edad:"));
-  const entrada = prompt("¿Tenés entrada válida? (si/no)");
- 
-  if (edad < 18) {
-    console.log("Acceso denegado: sos menor de edad");
-  } else if (entrada !== "si") {
-    console.log("Acceso denegado: no tenés entrada válida");
+function obtenerPorcentaje(tipoCliente) {
+  if (tipoCliente === "vip") {
+    return 20;
+  } else if (tipoCliente === "regular") {
+    return 10;
   } else {
-    ingresaron++;
-    console.log("Bienvenido al recital. Ingresaron: ${ingresaron}/${CAPACIDAD}");
+    return 0;
   }
 }
 
-console.log("Cupo completo. Se cerraron las puertas");
+const mostrarResultado = (mensaje) => {
+  console.log(mensaje);
+  alert(mensaje);
+};
+
+let totalCompras = 0;
+const cantidadPlantas = 3; 
+
+for (let i = 1; i <= cantidadPlantas; i++) {
+  const nombrePlanta = prompt("Ingresá el nombre de la planta " + i + ":");
+  const precio = Number(prompt("Ingresá el precio de " + nombrePlanta + ":"));
+  const tipoCliente = prompt("¿Qué tipo de cliente sos? (vip / regular / nuevo)");
+
+  const porcentaje = obtenerPorcentaje(tipoCliente);
+  const precioFinal = calcularDescuento(precio, porcentaje);
+
+  totalCompras = totalCompras + precioFinal;
+
+  mostrarResultado(
+    nombrePlanta + ": descuento " + porcentaje + "%, precio final " + precioFinal
+  );
+}
+
+mostrarResultado("Compra finalizada en Mis Plantitas. Total: " + totalCompras);
